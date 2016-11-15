@@ -13,7 +13,7 @@ import ch.bbc.rottengold.model.Comment;
  * Session Bean implementation class commentLister
  */
 @Stateless
-public class CommentLister implements CommentListerLocal {
+public class CommentBean implements CommentBeanLocal {
 
 	@PersistenceContext
 	EntityManager em;
@@ -23,7 +23,7 @@ public class CommentLister implements CommentListerLocal {
 	/**
 	 * Default constructor.
 	 */
-	public CommentLister() {
+	public CommentBean() {
 		// TODO Auto-generated constructor stub
 	}
 
