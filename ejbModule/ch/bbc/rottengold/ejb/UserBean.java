@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import ch.bbc.rottengold.model.User;
 
 /**
@@ -23,25 +24,20 @@ public class UserBean implements UserBeanLocal {
 		// TODO Auto-generated constructor stub
 	}
 
-//	public String login(User user) {
-//
-//		if (em.createNamedQuery("Customer.login").setParameter("custMail", user.getEmail())
-//				.setParameter("custPW", user.getPassword()).getResultList().size() > 0) {
-//			LOGGER.info("Customer " + user.getEmail() + " successfully logged in.");
-//			return "/home";
-//		} else {
-//			return "";
-//		}
-//
-//	}
-//
-//	public List<User> getAllUser() {
-//			
-//		return (List<User>) em.createNamedQuery("Customer.findAll").getResultList();
-//	}
-//	public void deleteUserById(int Id){
-//		LOGGER.info("Methode wird aufgerufen");
-//	}
+	public List<User> checkLogin(User user) {
+
+		if (em.createNamedQuery("User.checkLogin")
+				.setParameter("userUsername", user.getUsername())
+				.setParameter("userPassword", user.getPassword())
+				.getResultList().size() > 0) {
+
+			return (List<User>) em.createNamedQuery("User.getUserByUserName").setParameter("userUsername", user.getUsername()).getResultList();
+		} else {
+			
+		}
+		return null;
+	}
+
 
 	@Override
 	public String registerUser(User user) {

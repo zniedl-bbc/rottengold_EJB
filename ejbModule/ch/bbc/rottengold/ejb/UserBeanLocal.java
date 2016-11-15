@@ -15,4 +15,6 @@ public interface UserBeanLocal {
 	 */
 	public abstract String registerUser(User user);
 
+	public abstract List<User> checkLogin(User user);
+
 }
