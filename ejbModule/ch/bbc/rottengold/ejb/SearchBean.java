@@ -18,9 +18,9 @@ public class SearchBean implements SearchBeanLocal {
 	 * Default constructor.
 	 */
 	@PersistenceContext
-	EntityManager em;
+	private EntityManager em;
 
-	Website[] searchResults;
+	private Website[] searchResults;
 
 	public SearchBean() {
 		// TODO Auto-generated constructor stub

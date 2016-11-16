@@ -1,6 +1,8 @@
 package ch.bbc.rottengold.ejb;
 
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import ch.bbc.rottengold.model.Website;
 
@@ -10,17 +12,19 @@ import ch.bbc.rottengold.model.Website;
 @Stateless
 public class WebsiteInfoBean implements WebsiteInfoBeanLocal {
 
-    /**
-     * Default constructor. 
-     */
-    public WebsiteInfoBean() {
-        // TODO Auto-generated constructor stub
-    }
+	@PersistenceContext
+	private EntityManager em;
+
+	/**
+	 * Default constructor.
+	 */
+	public WebsiteInfoBean() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public Website getWebsiteInfo(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return (Website) em.createNamedQuery("Website.findByWebsiteId").setParameter("webId", id).getResultList();
 	}
 
 }
