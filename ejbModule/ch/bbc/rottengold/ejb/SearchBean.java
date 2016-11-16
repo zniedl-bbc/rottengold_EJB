@@ -30,7 +30,7 @@ public class SearchBean implements SearchBeanLocal {
 	public Website[] searchWebsite(String searchInput) {
 		@SuppressWarnings("unchecked")
 		List<Website> results = em.createNamedQuery("Website.findByWebsiteName")
-				.setParameter("webName", "%" + searchInput + "%").getResultList();
+				.setParameter("webName", searchInput + "%").getResultList();
 		int listSize = results.size();
 		searchResults = new Website[listSize];
 

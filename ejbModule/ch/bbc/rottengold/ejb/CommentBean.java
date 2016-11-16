@@ -28,12 +28,11 @@ public class CommentBean implements CommentBeanLocal {
 	}
 
 	@Override
-	public Collection<Comment> getCommentsViaWebsite(int id_website) {
+	public List<Comment> getCommentsViaWebsite(int id_website) {
 		@SuppressWarnings("unchecked")
 		List<Comment> results = em.createNamedQuery("Comment.findWithWebsite").setParameter("id_website", id_website)
 				.getResultList();
-		comments = results;
-		return comments;
+		return results;
 
 	}
 
