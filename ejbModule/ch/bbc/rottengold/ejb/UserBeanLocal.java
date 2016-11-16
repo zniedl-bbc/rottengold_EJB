@@ -17,4 +17,6 @@ public interface UserBeanLocal {
 
 	public abstract List<User> checkLogin(User user);
 
+	public abstract void deleteAccount(User user);
+
 }

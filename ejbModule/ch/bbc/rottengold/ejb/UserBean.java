@@ -42,6 +42,13 @@ public class UserBean implements UserBeanLocal {
 	@Override
 	public String registerUser(User user) {
 		em.persist(user);
-		return "/home";
+		return "/mainFrame";
+	}
+
+	@Override
+	public void deleteAccount(User user) {
+		System.out.println(user.getUsername());
+		em.createNamedQuery("User.deleteAccount")
+			.setParameter("userUsername", user.getUsername()).executeUpdate();
 	}
 }
