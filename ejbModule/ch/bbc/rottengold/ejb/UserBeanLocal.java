@@ -13,7 +13,7 @@ public interface UserBeanLocal {
 	 * 
 	 * @param user
 	 */
-	public abstract String registerUser(User user);
+	public abstract int registerUser(User user);
 
 	public abstract List<User> checkLogin(User user);
 

@@ -26,29 +26,34 @@ public class UserBean implements UserBeanLocal {
 
 	public List<User> checkLogin(User user) {
 
-		if (em.createNamedQuery("User.checkLogin")
-				.setParameter("userUsername", user.getUsername())
-				.setParameter("userPassword", user.getPassword())
-				.getResultList().size() > 0) {
+		if (em.createNamedQuery("User.checkLogin").setParameter("userUsername", user.getUsername())
+				.setParameter("userPassword", user.getPassword()).getResultList().size() > 0) {
 
-			return (List<User>) em.createNamedQuery("User.getUserByUserName").setParameter("userUsername", user.getUsername()).getResultList();
+			return (List<User>) em.createNamedQuery("User.getUserByUserName")
+					.setParameter("userUsername", user.getUsername())
+					.getResultList();
 		} else {
-			
+
 		}
 		return null;
 	}
 
-
 	@Override
-	public String registerUser(User user) {
-		em.persist(user);
-		return "/mainFrame";
+	public int registerUser(User user) {
+		if (em.createNamedQuery("User.getUserByUserName")
+				.setParameter("userUsername", user.getUsername())
+				.getResultList().size() == 0) {
+			em.persist(user);
+			return 0;
+		} else {
+
+			return 1;
+		}
 	}
 
 	@Override
 	public void deleteAccount(User user) {
 		System.out.println(user.getUsername());
-		em.createNamedQuery("User.deleteAccount")
-			.setParameter("userUsername", user.getUsername()).executeUpdate();
+		em.createNamedQuery("User.deleteAccount").setParameter("userUsername", user.getUsername()).executeUpdate();
 	}
 }
