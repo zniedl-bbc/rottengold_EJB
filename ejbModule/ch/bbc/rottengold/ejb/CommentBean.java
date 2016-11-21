@@ -18,7 +18,9 @@ public class CommentBean implements CommentBeanLocal {
 	@PersistenceContext
 	EntityManager em;
 
-	private Collection<Comment> comments;
+	private Comment[] comments;
+
+	private Comment defaultComment = new Comment("Default", "This is the default comment");
 
 	/**
 	 * Default constructor.
@@ -28,11 +30,28 @@ public class CommentBean implements CommentBeanLocal {
 	}
 
 	@Override
-	public List<Comment> getCommentsViaWebsite(int id_website) {
-		@SuppressWarnings("unchecked")
-		List<Comment> results = em.createNamedQuery("Comment.findWithWebsite").setParameter("id_website", id_website)
-				.getResultList();
-		return results;
+	public Comment[] getCommentsViaWebsite(String id_website) {
+		try {
+			int id = new Integer(id_website);
+			@SuppressWarnings("unchecked")
+			List<Comment> results = em.createNamedQuery("Comment.findWithWebsite").setParameter("id_website", id)
+					.getResultList();
+
+			if (results.get(0) != null) {
+				int iterator = 0;
+				comments = new Comment[results.size()];
+				while (iterator<results.size()){
+					 comments[iterator] = results.get(iterator);
+					 iterator++;
+				}
+			} else {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			comments = new Comment[] { defaultComment };
+		}
+
+		return comments;
 
 	}
 

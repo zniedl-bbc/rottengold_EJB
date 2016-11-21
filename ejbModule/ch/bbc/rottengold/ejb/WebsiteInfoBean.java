@@ -1,5 +1,7 @@
 package ch.bbc.rottengold.ejb;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,8 +25,21 @@ public class WebsiteInfoBean implements WebsiteInfoBeanLocal {
 	}
 
 	@Override
-	public Website getWebsiteInfo(int id) {
-		return (Website) em.createNamedQuery("Website.findByWebsiteId").setParameter("webId", id).getResultList();
+	public Website getWebsiteInfo(String idPar) {
+		Website website;
+		try {
+			int id = new Integer(idPar);
+			@SuppressWarnings("unchecked")
+			List<Website> results = em.createNamedQuery("Website.findByWebsiteId").setParameter("webId", id)
+					.getResultList();
+
+			website = results.get(0);
+		} catch (Exception e) {
+			website = new Website("Default", "http://localhost:8080/RottenGold_WEB/faces/mainFrame.xhtml",
+					"This is our Website");
+		}
+
+		return website;
 	}
 
 }

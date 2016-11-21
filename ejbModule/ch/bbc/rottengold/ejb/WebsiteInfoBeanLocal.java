@@ -6,5 +6,5 @@ import ch.bbc.rottengold.model.Website;
 
 @Local
 public interface WebsiteInfoBeanLocal {
-	public Website getWebsiteInfo(int id);
+	public Website getWebsiteInfo(String string);
 }
