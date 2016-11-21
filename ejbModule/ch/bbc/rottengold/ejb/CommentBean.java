@@ -55,4 +55,10 @@ public class CommentBean implements CommentBeanLocal {
 
 	}
 
+	@Override
+	public void addComment(Comment newComment) {
+		em.persist(newComment);
+		
+	}
+
 }
