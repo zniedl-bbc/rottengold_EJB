@@ -1,6 +1,5 @@
 package ch.bbc.rottengold.ejb;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -59,6 +58,11 @@ public class CommentBean implements CommentBeanLocal {
 	public void addComment(Comment newComment) {
 		em.persist(newComment);
 		
+	}
+
+	@Override
+	public void deleteComment(int commentDeleteID) {
+		em.createNamedQuery("Comment.deleteComment").setParameter("commentDeleteID", commentDeleteID).executeUpdate();
 	}
 
 }

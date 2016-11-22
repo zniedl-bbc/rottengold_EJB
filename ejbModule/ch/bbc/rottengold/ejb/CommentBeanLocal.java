@@ -9,4 +9,6 @@ public interface CommentBeanLocal {
 	public Comment[] getCommentsViaWebsite(String id_website);
 
 	public void addComment(Comment newComment);
+
+	public void deleteComment(int commentDeleteID);
 }
