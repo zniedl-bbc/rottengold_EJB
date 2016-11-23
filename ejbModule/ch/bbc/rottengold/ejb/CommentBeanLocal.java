@@ -11,4 +11,6 @@ public interface CommentBeanLocal {
 	public void addComment(Comment newComment);
 
 	public void deleteComment(int commentDeleteID);
+
+	public void editComment(Comment toBeEditedComment);
 }

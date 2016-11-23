@@ -66,4 +66,10 @@ public class CommentBean implements CommentBeanLocal {
 		em.createNamedQuery("Comment.deleteComment").setParameter("commentDeleteID", commentDeleteID).executeUpdate();
 	}
 
+	@Override
+	public void editComment(Comment toBeEditedComment) {
+		deleteComment(toBeEditedComment.getId());
+		addComment(toBeEditedComment);
+	}
+
 }
