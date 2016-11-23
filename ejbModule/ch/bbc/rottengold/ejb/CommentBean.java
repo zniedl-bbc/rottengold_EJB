@@ -19,8 +19,6 @@ public class CommentBean implements CommentBeanLocal {
 
 	private Comment[] comments;
 
-	private Comment defaultComment = new Comment("Default", "This is the default comment");
-
 	/**
 	 * Default constructor.
 	 */
@@ -32,6 +30,9 @@ public class CommentBean implements CommentBeanLocal {
 	public Comment[] getCommentsViaWebsite(String id_website) {
 		try {
 			int id = new Integer(id_website);
+			if (id == 0) {
+				id = 1;
+			}
 			@SuppressWarnings("unchecked")
 			List<Comment> results = em.createNamedQuery("Comment.findWithWebsite").setParameter("id_website", id)
 					.getResultList();
@@ -39,15 +40,15 @@ public class CommentBean implements CommentBeanLocal {
 			if (results.get(0) != null) {
 				int iterator = 0;
 				comments = new Comment[results.size()];
-				while (iterator<results.size()){
-					 comments[iterator] = results.get(iterator);
-					 iterator++;
+				while (iterator < results.size()) {
+					comments[iterator] = results.get(iterator);
+					iterator++;
 				}
 			} else {
 				throw new Exception();
 			}
 		} catch (Exception e) {
-			comments = new Comment[] { defaultComment };
+
 		}
 
 		return comments;
@@ -57,7 +58,7 @@ public class CommentBean implements CommentBeanLocal {
 	@Override
 	public void addComment(Comment newComment) {
 		em.persist(newComment);
-		
+
 	}
 
 	@Override
