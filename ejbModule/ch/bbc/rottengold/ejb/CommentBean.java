@@ -68,8 +68,8 @@ public class CommentBean implements CommentBeanLocal {
 
 	@Override
 	public void editComment(Comment toBeEditedComment) {
-		deleteComment(toBeEditedComment.getId());
-		addComment(toBeEditedComment);
+		em.createNamedQuery("Comment.updateComment").setParameter("commentNewTitle", toBeEditedComment.getTitle())
+				.setParameter("commentNewComment", toBeEditedComment.getComment()).setParameter("id", toBeEditedComment.getId());
 	}
 
 }
