@@ -53,7 +53,11 @@ public class UserBean implements UserBeanLocal {
 
 	@Override
 	public void deleteAccount(User user) {
-		System.out.println(user.getUsername());
 		em.createNamedQuery("User.deleteAccount").setParameter("userUsername", user.getUsername()).executeUpdate();
+	}
+
+	@Override
+	public void changePassword(User user) {
+		em.createNamedQuery("User.changePassword").setParameter("newPassword", user.getPassword()).setParameter("userId", user.getId()).executeUpdate();
 	}
 }

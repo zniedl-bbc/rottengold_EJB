@@ -19,4 +19,6 @@ public interface UserBeanLocal {
 
 	public abstract void deleteAccount(User user);
 
+	public abstract void changePassword(User user);
+
 }
