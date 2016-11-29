@@ -36,6 +36,9 @@ public class RatingBean implements RatingBeanLocal {
 		} catch (Exception e) {
 
 		}
+		if (rating == null){
+			rating = new Rating(0, 0, websiteId, userId); 
+		}
 
 		return rating;
 	}
@@ -44,19 +47,21 @@ public class RatingBean implements RatingBeanLocal {
 	public Rating[] getAllRatingsForWebsite(int websiteId) {
 		Rating[] allRatings = null;
 		try {
+			
 			@SuppressWarnings("unchecked")
 			List<Rating> results = em.createNamedQuery("Rating.findRatingByWebsiteId")
-					.setParameter("websiteId", websiteId).getResultList();
+					.setParameter("id_website", websiteId).getResultList();
 
 			int counter = 0;
 			allRatings = new Rating[results.size()];
-			for (Rating r : allRatings) {
-				r = results.get(counter);
+			while (counter <= results.size()) {
+				allRatings[counter] = results.get(counter);
 				counter++;
 			}
+			
 
 		} catch (Exception e) {
-
+			
 		}
 
 		return allRatings;
@@ -64,8 +69,8 @@ public class RatingBean implements RatingBeanLocal {
 
 	@Override
 	public void setNewRatingForThisUser(int rating, int user_id, int website_id) {
-		
-		
+		Rating newRating = new Rating(rating, website_id, user_id);
+		em.persist(newRating);
 	}
 
 }
