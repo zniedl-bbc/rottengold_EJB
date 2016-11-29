@@ -31,13 +31,10 @@ public class RatingBean implements RatingBeanLocal {
 		try {
 			@SuppressWarnings("unchecked")
 			List<Rating> results = em.createNamedQuery("Rating.findRatingByWebsiteIdAndUserId")
-					.setParameter("websiteId", websiteId).setParameter("userId", userId).getResultList();
+					.setParameter("id_website", websiteId).setParameter("id_user", userId).getResultList();
 			rating = results.get(0);
 		} catch (Exception e) {
 
-		}
-		if (rating == null){
-			rating = new Rating(0, 0, websiteId, userId); 
 		}
 
 		return rating;
@@ -47,7 +44,7 @@ public class RatingBean implements RatingBeanLocal {
 	public Rating[] getAllRatingsForWebsite(int websiteId) {
 		Rating[] allRatings = null;
 		try {
-			
+
 			@SuppressWarnings("unchecked")
 			List<Rating> results = em.createNamedQuery("Rating.findRatingByWebsiteId")
 					.setParameter("id_website", websiteId).getResultList();
@@ -58,10 +55,9 @@ public class RatingBean implements RatingBeanLocal {
 				allRatings[counter] = results.get(counter);
 				counter++;
 			}
-			
 
 		} catch (Exception e) {
-			
+
 		}
 
 		return allRatings;
@@ -71,6 +67,13 @@ public class RatingBean implements RatingBeanLocal {
 	public void setNewRatingForThisUser(int rating, int user_id, int website_id) {
 		Rating newRating = new Rating(rating, website_id, user_id);
 		em.persist(newRating);
+	}
+
+	@Override
+	public void updateRating(int rating, int user_id, int website_id) {
+		em.createNamedQuery("Rating.updateRating").setParameter("rating", rating)
+				.setParameter("id_website", website_id).setParameter("id_user", user_id).executeUpdate();
+
 	}
 
 }

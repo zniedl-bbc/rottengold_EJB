@@ -13,4 +13,6 @@ public interface RatingBeanLocal {
 
 	void setNewRatingForThisUser(int rating, int user_id, int website_id);
 
+	void updateRating(int rating, int user_id, int website_id);
+
 }
