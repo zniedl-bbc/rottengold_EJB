@@ -27,15 +27,19 @@ public class CommentBean implements CommentBeanLocal {
 	}
 
 	@Override
-	public Comment[] getCommentsViaWebsite(String id_website) {
+	public Comment[] getCommentsViaWebsite(int id_website) {
 		try {
-			int id = new Integer(id_website);
-			if (id == 0) {
-				id = 1;
+			if (Integer.parseInt("" + em.createNamedQuery("Website.findBiggestId").setMaxResults(1).getResultList()
+					.get(0)) < id_website) {
+				comments = null;
+			}
+
+			if (id_website == 0) {
+				id_website = 1;
 			}
 			@SuppressWarnings("unchecked")
-			List<Comment> results = em.createNamedQuery("Comment.findWithWebsite").setParameter("id_website", id)
-					.getResultList();
+			List<Comment> results = em.createNamedQuery("Comment.findWithWebsite")
+					.setParameter("id_website", id_website).getResultList();
 
 			if (results.get(0) != null) {
 				int iterator = 0;
@@ -44,8 +48,6 @@ public class CommentBean implements CommentBeanLocal {
 					comments[iterator] = results.get(iterator);
 					iterator++;
 				}
-			} else {
-				throw new Exception();
 			}
 		} catch (Exception e) {
 
@@ -69,7 +71,8 @@ public class CommentBean implements CommentBeanLocal {
 	@Override
 	public void editComment(Comment toBeEditedComment) {
 		em.createNamedQuery("Comment.updateComment").setParameter("commentNewTitle", toBeEditedComment.getTitle())
-				.setParameter("commentNewComment", toBeEditedComment.getComment()).setParameter("id", toBeEditedComment.getId());
+				.setParameter("commentNewComment", toBeEditedComment.getComment())
+				.setParameter("id", toBeEditedComment.getId());
 	}
 
 }
