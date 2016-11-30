@@ -6,7 +6,7 @@ import ch.bbc.rottengold.model.Comment;
 
 @Local
 public interface CommentBeanLocal {
-	public Comment[] getCommentsViaWebsite(int id_website);
+	public Comment[] getCommentsViaWebsite(int id_website, int biggestWebsiteId);
 
 	public void addComment(Comment newComment);
 

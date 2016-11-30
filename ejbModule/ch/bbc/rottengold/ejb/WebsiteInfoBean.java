@@ -43,5 +43,10 @@ public class WebsiteInfoBean implements WebsiteInfoBeanLocal {
 
 		return website;
 	}
+	@Override
+	public int findBiggestWebsiteId(int id_website) {
+
+		return Integer.parseInt("" + em.createNamedQuery("Website.findBiggestId").setMaxResults(1).getResultList().get(0));
+	}
 
 }

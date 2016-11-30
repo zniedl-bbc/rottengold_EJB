@@ -27,10 +27,9 @@ public class CommentBean implements CommentBeanLocal {
 	}
 
 	@Override
-	public Comment[] getCommentsViaWebsite(int id_website) {
+	public Comment[] getCommentsViaWebsite(int id_website, int biggestWebsiteId) {
 		try {
-			if (Integer.parseInt("" + em.createNamedQuery("Website.findBiggestId").setMaxResults(1).getResultList()
-					.get(0)) < id_website) {
+			if (biggestWebsiteId < id_website) {
 				comments = null;
 			}
 
