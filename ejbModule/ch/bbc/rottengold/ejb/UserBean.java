@@ -30,8 +30,7 @@ public class UserBean implements UserBeanLocal {
 				.setParameter("userPassword", user.getPassword()).getResultList().size() > 0) {
 
 			return (List<User>) em.createNamedQuery("User.getUserByUserName")
-					.setParameter("userUsername", user.getUsername())
-					.getResultList();
+					.setParameter("userUsername", user.getUsername()).getResultList();
 		} else {
 
 		}
@@ -39,11 +38,14 @@ public class UserBean implements UserBeanLocal {
 	}
 
 	@Override
-	public int registerUser(User user) {
-		if (em.createNamedQuery("User.getUserByUserName")
-				.setParameter("userUsername", user.getUsername())
+	public void registerUser(User user) {
+		em.persist(user);
+	}
+
+	@Override
+	public int checkIfUserAlreadyExists(User user) {
+		if (em.createNamedQuery("User.getUserByUserName").setParameter("userUsername", user.getUsername())
 				.getResultList().size() == 0) {
-			em.persist(user);
 			return 0;
 		} else {
 
@@ -58,7 +60,8 @@ public class UserBean implements UserBeanLocal {
 
 	@Override
 	public void changePassword(User user) {
-		em.createNamedQuery("User.changePassword").setParameter("newPassword", user.getPassword()).setParameter("userId", user.getId()).executeUpdate();
+		em.createNamedQuery("User.changePassword").setParameter("newPassword", user.getPassword())
+				.setParameter("userId", user.getId()).executeUpdate();
 	}
 
 	@Override
@@ -67,4 +70,5 @@ public class UserBean implements UserBeanLocal {
 		User userResult = results.get(0);
 		return userResult;
 	}
+
 }
