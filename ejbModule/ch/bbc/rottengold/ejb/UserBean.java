@@ -60,4 +60,11 @@ public class UserBean implements UserBeanLocal {
 	public void changePassword(User user) {
 		em.createNamedQuery("User.changePassword").setParameter("newPassword", user.getPassword()).setParameter("userId", user.getId()).executeUpdate();
 	}
+
+	@Override
+	public User getUserById(int userId) {
+		List<User> results = em.createNamedQuery("User.getUserById").setParameter("userId", userId).getResultList();
+		User userResult = results.get(0);
+		return userResult;
+	}
 }

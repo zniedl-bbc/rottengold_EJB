@@ -21,4 +21,6 @@ public interface UserBeanLocal {
 
 	public abstract void changePassword(User user);
 
+	public abstract User getUserById(int userId);
+
 }
