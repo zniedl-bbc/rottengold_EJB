@@ -6,6 +6,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.sun.xml.rpc.processor.modeler.j2ee.xml.emptyType;
+
 import ch.bbc.rottengold.model.Comment;
 
 /**
@@ -72,6 +74,10 @@ public class CommentBean implements CommentBeanLocal {
 		em.createNamedQuery("Comment.updateComment").setParameter("commentNewTitle", toBeEditedComment.getTitle())
 				.setParameter("commentNewComment", toBeEditedComment.getComment())
 				.setParameter("id", toBeEditedComment.getId());
+	}
+
+	public void deleteCommentsByUserID(int uID){
+		em.createNamedQuery("Comment.deleteCommentByUserID").setParameter("userId", uID).executeUpdate();
 	}
 
 }
