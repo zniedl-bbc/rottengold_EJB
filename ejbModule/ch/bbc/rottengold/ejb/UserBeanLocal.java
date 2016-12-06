@@ -25,4 +25,8 @@ public interface UserBeanLocal {
 	
 	public abstract int checkIfUserAlreadyExists(User user);
 
+	public abstract void increaseCommentCounter(User user);
+
+	public abstract void decreaseCommentCounter(User user);
+
 }

@@ -71,4 +71,24 @@ public class UserBean implements UserBeanLocal {
 		return userResult;
 	}
 
+	@Override
+	public void increaseCommentCounter(User user) {
+		User tmp = getUserById(user.getId());
+		em.createNamedQuery("User.editCommentCounter")
+		.setParameter("newCommentCounter", tmp.getCommentcounter() + 1)
+		.setParameter("userId", user.getId())
+		.executeUpdate();
+		
+	}
+
+	@Override
+	public void decreaseCommentCounter(User user) {
+		User tmp = getUserById(user.getId());
+		em.createNamedQuery("User.editCommentCounter")
+		.setParameter("newCommentCounter", tmp.getCommentcounter() - 1)
+		.setParameter("userId", user.getId())
+		.executeUpdate();
+		
+	}
+
 }
