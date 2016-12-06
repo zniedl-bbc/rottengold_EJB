@@ -9,5 +9,5 @@ public interface WebsiteInfoBeanLocal {
 
 	public Website getWebsiteInfo(String string);
 
-	public int findBiggestWebsiteId(int id_website);
+	public int findBiggestWebsiteId();
 }
