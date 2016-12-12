@@ -76,4 +76,10 @@ public class RatingBean implements RatingBeanLocal {
 
 	}
 
+	@Override
+	public void deleteRating(int id) {
+		em.createNamedQuery("Rating.deleteRatings").setParameter("userID", id).executeUpdate();
+		
+	}
+
 }

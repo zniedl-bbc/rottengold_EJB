@@ -52,5 +52,12 @@ public interface RatingBeanLocal {
 	 * @param website_id	This ID is used to set the rating on the specific website
 	 */
 	void updateRating(int rating, int user_id, int website_id);
+	
+	/**
+	 * This function deletes all ratings from a the deleted user.
+	 * 
+	 * @param id	UserId to delete all comments
+	 */
+	void deleteRating(int id);
 
 }
