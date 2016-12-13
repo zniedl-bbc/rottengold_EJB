@@ -6,8 +6,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.sun.xml.rpc.processor.modeler.j2ee.xml.emptyType;
-
 import ch.bbc.rottengold.model.Comment;
 
 /**

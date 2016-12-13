@@ -1,7 +1,6 @@
 package ch.bbc.rottengold.ejb;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,8 +14,6 @@ import ch.bbc.rottengold.model.User;
 @Stateless
 public class UserBean implements UserBeanLocal {
 
-	private final static Logger LOGGER = Logger.getLogger(UserBean.class.getName());
-
 	@PersistenceContext
 	EntityManager em;
 
@@ -24,6 +21,7 @@ public class UserBean implements UserBeanLocal {
 		// TODO Auto-generated constructor stub
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<User> checkLogin(User user) {
 
 		if (em.createNamedQuery("User.checkLogin").setParameter("userUsername", user.getUsername())
@@ -66,6 +64,7 @@ public class UserBean implements UserBeanLocal {
 
 	@Override
 	public User getUserById(int userId) {
+		@SuppressWarnings("unchecked")
 		List<User> results = em.createNamedQuery("User.getUserById").setParameter("userId", userId).getResultList();
 		User userResult = results.get(0);
 		return userResult;
@@ -74,21 +73,17 @@ public class UserBean implements UserBeanLocal {
 	@Override
 	public void increaseCommentCounter(User user) {
 		User tmp = getUserById(user.getId());
-		em.createNamedQuery("User.editCommentCounter")
-		.setParameter("newCommentCounter", tmp.getCommentcounter() + 1)
-		.setParameter("userId", user.getId())
-		.executeUpdate();
-		
+		em.createNamedQuery("User.editCommentCounter").setParameter("newCommentCounter", tmp.getCommentcounter() + 1)
+				.setParameter("userId", user.getId()).executeUpdate();
+
 	}
 
 	@Override
 	public void decreaseCommentCounter(User user) {
 		User tmp = getUserById(user.getId());
-		em.createNamedQuery("User.editCommentCounter")
-		.setParameter("newCommentCounter", tmp.getCommentcounter() - 1)
-		.setParameter("userId", user.getId())
-		.executeUpdate();
-		
+		em.createNamedQuery("User.editCommentCounter").setParameter("newCommentCounter", tmp.getCommentcounter() - 1)
+				.setParameter("userId", user.getId()).executeUpdate();
+
 	}
 
 }

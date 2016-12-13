@@ -1,6 +1,5 @@
 package ch.bbc.rottengold.ejb;
 
-import java.sql.ResultSet;
 import java.util.List;
 
 import javax.ejb.Stateless;
